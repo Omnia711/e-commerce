@@ -1,0 +1,29 @@
+<section class="m-4 mt-5 pt-5" *ngIf="brand.length > 0">
+  <h1
+    style="
+      text-align: center;
+      color: #0aad0a;
+      font-weight: bold;
+      letter-spacing: 15px;
+    "
+    class="mb-4"
+  >
+    Our Brands
+  </h1>
+
+  <div class="row g-4">
+    <div class="col-md-2" *ngFor="let item of brand">
+      <div class="product">
+        <div
+          class="p-2 cursor-pointer"
+          [routerLink]="['/brandsdetails', item._id]"
+        >
+          <img [src]="item.image" [alt]="item.name" class="w-100" />
+          <h3 class="h5 text-center" style="font-weight: bold">
+            {{ item.name }}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

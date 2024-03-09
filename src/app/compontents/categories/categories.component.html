@@ -1,0 +1,34 @@
+<section class="m-4 mt-5 pt-5" *ngIf="categories.length > 0">
+  <h1
+    style="
+      text-align: center;
+      color: #0aad0a;
+      font-weight: bold;
+      letter-spacing: 15px;
+    "
+    class="mb-4"
+  >
+    Our Categories
+  </h1>
+
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let item of categories">
+      <div class="product">
+        <div
+          class="p-2 cursor-pointer"
+          [routerLink]="['/categoriesdetails', item._id]"
+        >
+          <img
+            [src]="item.image"
+            [alt]="item.name"
+            class="w-100"
+            height="500"
+          />
+          <h3 class="text-center h4 text-main pt-2" style="font-weight: bold">
+            {{ item.name }}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

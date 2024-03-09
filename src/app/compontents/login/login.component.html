@@ -1,0 +1,67 @@
+<section class="bg-main-light rounded p-4 my-3 w-75 mx-auto">
+  <h1>Login Now</h1>
+  <!-- هنا بربط الفورم بال ts ال عملته ليها 
+ngSubmit بتعمل للفورم نفسه  -->
+  <form action="" [formGroup]="loginform" (ngSubmit)="handleForm()">
+    <div class="mb-2">
+      <label for="email">Email :</label>
+      <input
+        type="email"
+        name=""
+        id="name"
+        class="form-control"
+        formControlName="email"
+        #inputEmail
+      />
+      <div
+        class="alert alert-danger mt-2"
+        *ngIf="
+          loginform.get('email')?.errors &&
+          (loginform.get('email')?.touched || inputEmail.value.length > 0)
+        "
+      >
+        <p *ngIf="loginform.get('email')?.getError('required')">
+          Email Required
+        </p>
+        <p *ngIf="loginform.get('email')?.getError('email')">Email invalid</p>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label for="password">Password :</label>
+      <input
+        type="password"
+        name=""
+        id="password"
+        class="form-control"
+        formControlName="password"
+        #inputPassword
+      />
+      <div
+        class="alert alert-danger mt-2"
+        *ngIf="
+          loginform.get('password')?.errors &&
+          (loginform.get('password')?.touched || inputPassword.value.length > 0)
+        "
+      >
+        <p *ngIf="loginform.get('password')?.getError('required')">
+          Password Required
+        </p>
+        <p *ngIf="loginform.get('password')?.getError('pattern')">
+          Password confirmation is incorrect
+        </p>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <button
+        class="btn-main ms-auto d-block me-2"
+        [disabled]="loginform.invalid"
+      >
+        <i class="fa fa-spinner fa-spin" *ngIf="isloading"></i>
+        Login
+      </button>
+      <a class="link-primary" routerLink="/Setting">Forget Password</a>
+    </div>
+    <p class="alert alert-danger" *ngIf="msError">{{ msError }}</p>
+  </form>
+</section>

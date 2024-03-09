@@ -1,0 +1,133 @@
+<!-- <section class="m-4 mt-5 pt-5" *ngIf="products.length > 0">
+  <h1
+    style="
+      text-align: center;
+      color: #0aad0a;
+      font-weight: bold;
+      letter-spacing: 15px;
+    "
+    class="mb-4"
+  >
+    Our Products
+  </h1>
+  <input
+    type="search"
+    class="form-control w-50 my-4 mx-auto"
+    placeholder="search"
+    [(ngModel)]="searchTerm"
+  />
+
+  <div class="row justify-content-center g-4">
+    <div
+      class="col-md-2"
+      *ngFor="
+        let item of products
+          | search : searchTerm
+          | paginate
+            : {
+                id: 'pagination',
+                itemsPerPage: pageSize,
+                currentPage: currentPage,
+                totalItems: total
+              }
+      "
+    >
+      <div class="product">
+        <div class="p-2 cursor-pointer" [routerLink]="['/details', item._id]">
+          <img [src]="item.imageCover" [alt]="item.title" class="w-100" />
+          <h3 class="h6">{{ item.category.name | buy }}</h3>
+          <h4 class="h6 text-main">{{ item.title | term : 2 }}</h4>
+          <div class="d-flex align-items-center justify-content-between">
+            <span>{{ item.price | currency : "E£" }} </span>
+            <div>
+              <i class="fas fa-star rating-color"></i>
+              <span class="text-muted">{{ item.ratingsAverage }}</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-main w-100" (click)="addProduct(item._id, btn)" #btn>
+          Add Product
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls
+      id="pagination"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      [maxSize]="9"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+  </div>
+</section> -->
+
+<section class="m-4 mt-5 pt-5" *ngIf="products.length > 0">
+  <h1
+    style="
+      text-align: center;
+      color: #0aad0a;
+      font-weight: bold;
+      letter-spacing: 15px;
+    "
+    class="mb-4"
+  >
+    Popular Products
+  </h1>
+  <input
+    type="search"
+    class="form-control w-50 my-4 mx-auto"
+    placeholder="search"
+    [(ngModel)]="searchTerm"
+  />
+
+  <div class="row g-4">
+    <div
+      class="col-md-2"
+      *ngFor="let item of products.slice(0, 18) | search : searchTerm"
+    >
+      <div class="product">
+        <!-- add fav item -->
+        <i
+          *ngIf="!wishListData.includes(item._id)"
+          class="fa-regular fa-heart heart"
+          (click)="addToWishList(item._id)"
+        ></i>
+        <!-- delete fav item -->
+        <i
+          *ngIf="wishListData.includes(item._id)"
+          class="fa-solid fa-heart-crack removeheart"
+          (click)="removeFav(item._id)"
+        ></i>
+        <div class="p-2 cursor-pointer" [routerLink]="['/details', item._id]">
+          <img [src]="item.imageCover" [alt]="item.title" class="w-100" />
+          <h3 class="h6">{{ item.category.name | buy }}</h3>
+          <h4 class="h6 text-main">{{ item.title | term : 2 }}</h4>
+          <div class="d-flex align-items-center justify-content-between">
+            <span>{{ item.price | currency : "E£" }} </span>
+            <div>
+              <i
+                class="fas fa-star"
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                [class.rating-color]="item.ratingsAverage >= star"
+              ></i>
+              <span class="text-muted">{{ item.ratingsAverage }}</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-main w-100" (click)="addProduct(item._id, btn)" #btn>
+          Add Product
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
